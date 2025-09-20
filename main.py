@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware  # Add this import
 from pydantic import BaseModel
 import joblib
 import numpy as np
@@ -6,6 +7,16 @@ import os
 
 app = FastAPI(title="Aarogya Sahayak Risk Predictor")
 
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
+# ...existing code...
 # Models folder
 MODEL_PATH = "models/risk_model.pkl"
 SCALER_PATH = "models/scaler.pkl"
